@@ -11,6 +11,7 @@ header {
     padding: 15px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 #btn-carrinho {
     background: white;
@@ -40,6 +41,7 @@ header {
     object-fit: cover;
     border-radius: 10px;
     margin-bottom: 10px;
+    cursor: pointer;
 }
 .card:hover {
     transform: translateY(-5px) scale(1.03);
@@ -92,8 +94,8 @@ button:active {
     text-align: center;
     display: flex;
     flex-direction: column;
-    max-height: 80vh;
     animation: abrirModal 0.3s ease;
+    animation: aparecer 0.3s ease;
 }
 
 .modal-box h2 {
