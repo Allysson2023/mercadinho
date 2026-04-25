@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Mercadinho Online</title>
+</head>
+<body>
+
+    <header>
+        <h1>🛒 Meu Mercadinho</h1>
+        <button id="btn-carrinho">🛒 Carrinho</button>
+    </header>
+
+
+    <main>
+        <section class="produtos" id="lista-produtos"></section>
+    </main>
+    
+    <div id="modal-carrinho" class="modal oculto">
+        <div class="modal-box">
+            <h2>🛒 Seu Carrinho</h2>
+            <ul id="lista-carrinho"></ul>
+            <p id="total">Total: R$ 0</p>
+
+            <button onclick="fecharCarrinho()">Voltar</button>
+            <button onclick="abrirModalCliente()">Continuar</button>
+        </div>
+    </div>
+
+    <div id="modal" class="modal oculto">
+        <div class="modal-box">
+            <span onclick="fecharModal()">X</span>
+
+            <img id="img-principal">
+
+            <div id="miniaturas" ></div>
+
+            <h2 id="nome"></h2>
+            <p id="descricao"></p>
+            <p id="preco"></p>
+
+            <button onclick="fecharModal()" >Voltar</button>
+            <button onclick="smsAdicionado()">Adicionar</button>
+
+        </div>
+    </div>
+
+    <div id="modal-cliente" class="modal oculto">
+
+        <div class="modal-box">
+
+            <h2 class="titulo-form">Finalizar Pedido</h2>
+
+            <div class="campo">
+                <label>Nome</label>
+                <input id="nomeCliente" placeholder="Seu nome..."><br><br>
+            </div>
+            <div class="campo">
+                <label>Endereço</label>
+                <input id="endereco" placeholder="Ex: Rua, Bairro..."><br><br>
+            </div>
+            <div class="campo">
+                <label>N. da Casa</label>
+                <input id="numeroCasa" placeholder="Ex: 123.."><br><br>
+            </div>
+
+            <div class="campo">
+                <label>Telefone</label>
+                <input id="telefone" placeholder="Ex: (85 9...)"><br><br>
+            </div>
+
+            <div class="campo">
+                <label>Pagamento</label>
+                <select id="pagamento">
+                    <option value="">Forma de pagamento!</option>
+                    <option value="Dinheiro">Dinheiro</option>
+                    <option value="Pix">Pix</option>
+                    <option value="Cartão">Cartão</option>
+                </select><br><br>
+            </div>
+
+            <div class="campo">
+                <label>Troco</label>
+                <input id="troco" placeholder="Ex: 50 (se for dinheiro)"><br><br>
+            </div>
+
+            <div class="botoes-form">
+                <button onclick="fecharModalCliente()">Voltar</button>
+                <button onclick="enviarPedido()">Finalizar</button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
