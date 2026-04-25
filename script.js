@@ -119,7 +119,7 @@ function adicionarProduto(produto){
     atualizarCarrinho();
     atualizandoBotaoCarrinho();
 
-    alert("Produto adicionado: " + produto.nome);
+    mostrarToast("✔ Produto adicionado: " + produto.nome);
 }
 
 
@@ -136,19 +136,7 @@ function abrirModal(id){
     const imgPrincipal = document.getElementById("img-principal");
     imgPrincipal.src = produto.imagens[0];
 
-    const miniaturas = document.getElementById("miniaturas");
-    miniaturas.innerHTML = "";
-
-    produto.imagens.forEach(img =>{
-        const imagem = document.createElement("img");
-        imagem.src = img;
-
-        imagem.onclick = () => {
-            imgPrincipal.src = img;
-        };
-
-        miniaturas.appendChild(imagem);
-    })
+    
 
     document.getElementById("modal").classList.remove("oculto");
 }
@@ -282,7 +270,6 @@ function enviarPedido(){
     }
 
     if(!nome || !endereco || !telefone){
-        alert("Preencha os campos obrigatórios");
         return;
     }
 
@@ -303,6 +290,17 @@ function limpaCarrinho(){
 
     atualizarCarrinho();
     atualizandoBotaoCarrinho();
+}
+
+function mostrarToast(mensagem){
+    const toast = document.getElementById("toast");
+
+    toast.innerText = mensagem;
+    toast.classList.add("show");
+
+    setTimeout(() => {
+        toast.classList.remove("show");
+    }, 2000)
 }
 
 

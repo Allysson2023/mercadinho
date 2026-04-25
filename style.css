@@ -2,47 +2,77 @@ body{
     font-family: Arial, sans-serif;
     margin: 0;
     background-color: #f5f5f5;
+    overflow-x: hidden;
 }
 
 header {
+    position: sticky;
+    top: 0;    
+    z-index: 10;
     background-color: #ff3d00;
     color: white;
-    text-align: center;
-    padding: 15px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 12px;
+    padding-left: 120px;
 }
 #btn-carrinho {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    font-weight: bold;
     background: white;
     color: #ff3d00;
-    font-weight: bold;
+    padding: 10px 15px;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 .produtos {
-    display: flex;
-    gap: 20px;
-    padding: 20px;
-    justify-content: center;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    padding: 12px;
 }
 
 .card {
     background: white;
-    padding: 15px;
-    border-radius: 10px;
-    text-align: center;
-    width: 150px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s;
+    cursor: pointer;
+}
+.card:active{
+    transform: scale(0.97);
 }
 .card img {
     width: 100%;
-    height: 120px;
+    height: 140px;
     object-fit: cover;
-    border-radius: 10px;
-    margin-bottom: 10px;
-    cursor: pointer;
+    border-radius: 12px 12px 0 0;
 }
+.card h3{
+    font-size: 14px;
+    margin: 8px;
+}
+.card p {
+    font-size: 13px;
+    margin: 0 8px 8px;
+    color: #555;
+}
+
+.card button {
+    margin: 8px;
+    margin-top: auto;
+    width: 100%;
+}
+
 .card:hover {
     transform: translateY(-5px) scale(1.03);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
@@ -77,6 +107,9 @@ button:active {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding-top: 20px;
+    padding: 20px 10px;
+    z-index: 9999;
 }
 
 .oculto {
@@ -84,18 +117,21 @@ button:active {
 }
 
 .modal-box {
+    max-height: 85vh;
+    overflow-y: auto;
+    margin-top: 10px;
     background: white;
     padding: 20px;
+    padding-top: 25px;
     border-radius: 10px;
     width: 320px;
-    max-height: 80vh;
-    overflow-y: auto;
     scrollbar-width: thin;
     text-align: center;
     display: flex;
     flex-direction: column;
-    animation: abrirModal 0.3s ease;
-    animation: aparecer 0.3s ease;
+    transform: scale(0.9);
+    animation: abrirModal 0.25s ease forwards;
+    scroll-behavior: smooth;
 }
 
 .modal-box h2 {
@@ -107,8 +143,10 @@ button:active {
 
 #img-principal {
     width: 100%;
-    height: 150px;
+    height: 220px;
     object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 #miniaturas {
     display: flex;
@@ -194,6 +232,7 @@ button:active {
      flex-direction: column;
      margin-bottom: 12px;
      text-align: left;
+     margin-top: 10px;
 }
 .campo label {
     font-size: 13px;
@@ -204,6 +243,7 @@ button:active {
 
 .campo input,
 .campo select {
+    font-size: 16px;
     padding: 8px;
     border-radius: 6px;
     border: 1px solid #ccc;
@@ -226,6 +266,40 @@ button:active {
 #nomeCliente {
     border: 2px solid #ff3d00;
 }
+
+.toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    background: #ff3d00;
+    color: white;
+    padding: 12px 18px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: bold;
+
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: 99999;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-10px);
+}
+
+@keyframes pulse {
+    0% {transform:  scale(1);}
+    50% {transform : scale(1.1);}
+    100% {transform : scale(1);}
+}
+.pulse{
+    animation: pulse 0.3s ease;
+}
 @keyframes adicionar {
     0% {transform: scale(1);}
     50% {transform: scale(1.1);}
@@ -245,7 +319,7 @@ button:active {
 @keyframes abrirModal {
     from{
         opacity: 0;
-        transform: scale(0.8);
+        transform: scale(0.85);
     }
     to{
         opacity: 1;
@@ -259,5 +333,35 @@ button:active {
     }
     to{
         opacity: 1;
+    }
+}
+
+@media(max-width: 600px){
+    .modal-box {
+        width: 95%;
+        max-height: 90vh;
+        overflow-y: auto;
+        padding: 15px;
+    }
+}
+@media(max-width: 480px){
+    .produtos{
+        display: grid;
+        gap: 10px;
+        padding: 10px;
+        grid-template-columns: repeat(2, 1fr);
+    }
+    #btn-carrinho{
+        top: 6px;
+        left: 6px;
+        padding: 7px 10px;
+        font-size: 13px;
+        z-index: 1000;
+    }
+}
+
+@media(max-width: 350px) {
+    .produtos{
+        grid-template-columns: 1fr;
     }
 }
