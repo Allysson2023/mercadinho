@@ -1,43 +1,4 @@
-let carrinho = [];
-
-const produtos = [
-    {
-        id: 1,
-        nome: "Arroz",
-        preco: 4,
-        categoria: "Alimentos",
-        descricao: "Arroz branco tipo 1, pacote de 1kg, marca camil",
-        imagens:[
-            "img/arroz camil.jpg",
-            "img/arroz camil.jpg",
-            "img/arroz camil.jpg"
-        ]
-    },
-    {
-        id: 2,
-        nome: "Macarrão",
-        preco: 4,
-        categoria: "Alimentos",
-        descricao: " Macarrão Fortaleza",
-        imagens:[
-            "img/macarraoFortaleza.jpg",
-            "img/macarraoFortaleza.jpg",
-            "img/macarraoFortaleza.jpg"
-        ]
-    },
-    {
-        id: 3,
-        nome: "Feijão",
-        preco: 6,
-        categoria: "Alimentos",
-        descricao: "Feijão tipo 1, pacote de 1kg, marca Kicaldo",
-        imagens:[
-            "img/feijao de corda kicaldo 1 k.jpg",
-            "img/feijao de corda kicaldo 1 k.jpg",
-            "img/feijao de corda kicaldo 1 k.jpg"
-        ]
-    }
-];
+let carrinho = []
 
 const lista = document.getElementById("lista-produtos");
 let produtoAtual = null;
@@ -68,7 +29,7 @@ produtos.forEach(produto => {
     card.classList.add("card");
 
     const img = document.createElement("img");
-    img.src = produto.imagens[0];
+    img.src = produto.imagem;
 
     img.addEventListener("click", () => {
         abrirModal(produto.id);
@@ -134,7 +95,7 @@ function abrirModal(id){
     document.getElementById("preco").innerText = "R$ " + produto.preco;
 
     const imgPrincipal = document.getElementById("img-principal");
-    imgPrincipal.src = produto.imagens[0];
+    imgPrincipal.src = produto.imagem;
 
     
 
@@ -250,7 +211,7 @@ function enviarPedido(){
     mensagem += `👤 Nome: ${nome}\n\n`;
     
     carrinho.forEach(item => {
-        mensagem += ` - - - - - - - - - - - - - - - - - - - - - - - -\n`
+        mensagem += ` - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n`
         mensagem += `Qtd x ${item.quantidade} -> ${item.nome}\n `;
     });
     
@@ -261,11 +222,12 @@ function enviarPedido(){
         //});
         
         //mensagem += `\nTotal: R$ ${total}\n\n`;
-    mensagem += ` - - - - - - - - - - - - - - - - - - - - - - - -\n`
+    mensagem += ` - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n`
 
     mensagem += `📍 Endereço: ${endereco}, Nº ${numero}\n`;
     mensagem += `📞 Telefone: ${telefone}\n`;
     mensagem += `💳 Pagamento: ${pagamento}\n`;
+    mensagem += `💳 Troco: ${troco}\n`;
 
     if(pagamento === "Dinheiro" && troco){
         mensagem += `💰 Troco para: R$ ${troco}\n`;
