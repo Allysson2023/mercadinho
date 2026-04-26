@@ -9,10 +9,11 @@
 <body>
 
     <header>
-        <h1>🛒 Meu Mercadinho</h1>
+        <h1>🛒 Mercadinho</h1>
         <button id="btn-carrinho">🛒 Carrinho</button>
     </header>
 
+    <div id="toast" class="toast"></div>
 
     <main>
         <section class="produtos" id="lista-produtos"></section>
@@ -24,8 +25,8 @@
             <ul id="lista-carrinho"></ul>
             <p id="total">Total: R$ 0</p>
 
-            <button onclick="fecharCarrinho()">Voltar</button>
-            <button onclick="abrirModalCliente()">Continuar</button>
+            <button class="btn-voltar" onclick="fecharCarrinho()">Voltar</button>
+            <button class="btn-continua" onclick="abrirModalCliente()">Continuar</button>
         </div>
     </div>
 
@@ -38,7 +39,7 @@
             <p id="descricao"></p>
             <p id="preco"></p>
 
-            <button onclick="fecharModal()" >Voltar</button>
+            <button class="btn-voltar" onclick="fecharModal()" >Voltar</button>
             <button onclick="smsAdicionado()">Adicionar</button>
 
         </div>
@@ -93,7 +94,6 @@
 
     </div>
 
-    <div id="toast" class="toast"></div>
 <script src="script.js"></script>
 
 </body>
