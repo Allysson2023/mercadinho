@@ -247,20 +247,22 @@ function enviarPedido(){
 
     let mensagem = "🛒 Pedido:\n\n";
 
+    mensagem += `👤 Nome: ${nome}\n\n`;
+    
     carrinho.forEach(item => {
-        mensagem += `${item.nome} 
-        (x${item.quantidade}) valor R$: ${item.preco * item.quantidade}\n `;
+        mensagem += ` - - - - - - - - - - - - - - - - - - - - - - - -\n`
+        mensagem += `Qtd x ${item.quantidade} -> ${item.nome}\n `;
     });
+    
+    
+    //let total = 0;
+    //carrinho.forEach(item => {
+        //    total += item.preco * item.quantidade;
+        //});
+        
+        //mensagem += `\nTotal: R$ ${total}\n\n`;
+    mensagem += ` - - - - - - - - - - - - - - - - - - - - - - - -\n`
 
-
-    let total = 0;
-    carrinho.forEach(item => {
-        total += item.preco * item.quantidade;
-    });
-
-    mensagem += `\nTotal: R$ ${total}\n\n`;
-
-    mensagem += `👤 Nome: ${nome}\n`;
     mensagem += `📍 Endereço: ${endereco}, Nº ${numero}\n`;
     mensagem += `📞 Telefone: ${telefone}\n`;
     mensagem += `💳 Pagamento: ${pagamento}\n`;
@@ -278,10 +280,10 @@ function enviarPedido(){
     const link = `https://wa.me/${numeroWhats}?text=${encodeURIComponent(mensagem)}`;
 
     window.open(link, "_blank");
-    alert("Pedido enviado com sucesso!");
-
     limpaCarrinho();
     fecharModalCliente();
+    mostrarToast("✔ Pedido Enviado com sucesso! ");
+
 
 }
 function limpaCarrinho(){
