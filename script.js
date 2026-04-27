@@ -18,12 +18,37 @@ const campoTroco = document.getElementById("campo-troco");
 
 selectPagamento.addEventListener("change", () => {
     if(selectPagamento.value === "Dinheiro"){
-        campoTroco.style.display = "block";
+        //campoTroco.style.display = "block";
+        abrirModalTroco();
     } else {
         campoTroco.style.display = "none";
         document.getElementById("troco").value = "";
     }
 })
+
+function abrirModalTroco(){
+    document.getElementById("modal-troco").classList.remove("oculto");
+}
+
+function fecharModalTroco(){
+    document.getElementById("modal-troco").classList.add("oculto");
+}
+
+function naoPrecisaTroco(){
+    const campoTroco = document.getElementById("campo-troco");
+
+    campoTroco.style.display = "none";
+    document.getElementById("troco").value = "";
+
+    fecharModalTroco();
+}
+
+function precisaTroco(){
+    const campoTroco = document.getElementById("campo-troco");
+    campoTroco.style.display = "block";
+
+    fecharModalTroco();
+}
 
 function atualizandoBotaoCarrinho(){
     const btnCarrinho = document.getElementById("btn-carrinho");
