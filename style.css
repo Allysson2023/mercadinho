@@ -81,7 +81,7 @@ header {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 .card.animar {
-    animation: clickAdd 0.5s ease;
+    animation: clickAdd 0.3s ease;
 }
 button {
     background-color: #ff3d00;
@@ -343,6 +343,35 @@ button:active {
 .categoria-btn.ativo {
     background: #00aaff;
     color: white;
+}
+
+.btn-limpar {
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    border: none;
+    background: #ff4d4d;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.btn-limpar:hover {
+    background: #cc0000;
+}
+
+.btn-perigo {
+    background: #ff3d3d;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.btn-perigo:hover {
+    background: #d92c2c;
 }
 
 @keyframes aparecer {

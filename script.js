@@ -135,6 +135,44 @@ function atualizarCarrinho(){
         soma += item.preco * item.quantidade;
     });
     total.innerText = "Total: R$ " + soma;
+
+    const btnLimpar = document.querySelector(".btn-limpar");
+
+    if(btnLimpar){
+        btnLimpar.style.display = carrinho.length === 0 ? "none" : "block";
+    }
+}
+
+function abrirConfirmacao(){
+    document.getElementById("modal-confirmar").classList.remove("oculto");
+}
+
+function fecharConfirmacao(){
+    document.getElementById("modal-confirmar").classList.add("oculto");
+}
+
+function confirmarLimpeza(){
+    carrinho = [];
+    localStorage.removeItem("carrinho");
+
+    atualizarCarrinho();
+    atualizandoBotaoCarrinho();
+
+    fecharConfirmacao();
+
+    mostrarToast("🗑 Carrinho limpo!")
+}
+
+function limpaCarrinho(){
+    
+    if(carrinho.length === 0) return;
+
+        carrinho= [];
+        localStorage.removeItem("carrinho");
+        
+        atualizarCarrinho();
+        atualizandoBotaoCarrinho();
+    
 }
 
 function aumentar(id){
@@ -250,13 +288,6 @@ function enviarPedido(){
     mostrarToast("✔ Pedido Enviado com sucesso! ");
 
 
-}
-function limpaCarrinho(){
-    carrinho= [];
-    localStorage.removeItem("carrinho");
-
-    atualizarCarrinho();
-    atualizandoBotaoCarrinho();
 }
 
 function mostrarToast(mensagem){

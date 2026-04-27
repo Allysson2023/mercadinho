@@ -30,6 +30,7 @@
     <div id="modal-carrinho" class="modal oculto">
         <div class="modal-box">
             <h2>🛒 Seu Carrinho</h2>
+            <button class="btn-limpar" onclick="abrirConfirmacao()">🗑️ Limpar Carrinho</button>
             <ul id="lista-carrinho"></ul>
             <p id="total">Total: R$ 0</p>
 
@@ -101,6 +102,19 @@
         </div>
 
     </div>
+
+    <div id="modal-confirmar" class="modal oculto">
+        <div class="modal-box " >
+            <h2>Tem certeza ?</h2>
+            <p>Deseja apagar todos os itens do carrinho?</p>
+            
+            <div class="botoes-form">
+                <button onclick="fecharConfirmacao()" >Não</button>
+                <button class="btn-perigo" onclick="confirmarLimpeza()" >Sim, apagar</button>
+            </div>
+        </div>
+    </div>
+
 <script src="produtos.js"></script>
 <script src="script.js"></script>
 
