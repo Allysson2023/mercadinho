@@ -379,6 +379,10 @@ button:active {
     cursor: not-allowed;
 }
 
+#campo-troco {
+    display: none;
+}
+
 @keyframes aparecer {
     to {
         opacity: 1;

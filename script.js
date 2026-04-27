@@ -12,6 +12,19 @@ function fecharCarrinho() {
     document.getElementById("modal-carrinho").classList.add("oculto");
 }
 
+const selectPagamento = document.getElementById("pagamento");
+const campoTroco = document.getElementById("campo-troco");
+
+
+selectPagamento.addEventListener("change", () => {
+    if(selectPagamento.value === "Dinheiro"){
+        campoTroco.style.display = "block";
+    } else {
+        campoTroco.style.display = "none";
+        document.getElementById("troco").value = "";
+    }
+})
+
 function atualizandoBotaoCarrinho(){
     const btnCarrinho = document.getElementById("btn-carrinho");
     
