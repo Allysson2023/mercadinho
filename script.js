@@ -141,6 +141,13 @@ function atualizarCarrinho(){
     if(btnLimpar){
         btnLimpar.style.display = carrinho.length === 0 ? "none" : "block";
     }
+
+    const btnContinuar = document.querySelector(".btn-continua");
+
+    if (btnContinuar) {
+        btnContinuar.style.display = carrinho.length === 0 ? "none" : "block";
+        btnContinuar.disabled = carrinho.length === 0;
+    }
 }
 
 function abrirConfirmacao(){

@@ -374,6 +374,11 @@ button:active {
     background: #d92c2c;
 }
 
+.btn-continua:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
 @keyframes aparecer {
     to {
         opacity: 1;
