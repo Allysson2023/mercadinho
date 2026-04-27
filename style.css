@@ -47,6 +47,9 @@ header {
     flex-direction: column;
     transition: transform 0.2s;
     cursor: pointer;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: aparecer 0.6s ease forwards;
 }
 .card:active{
     transform: scale(0.97);
@@ -78,7 +81,7 @@ header {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 .card.animar {
-    animation: adicionar 0.3s ease;
+    animation: clickAdd 0.5s ease;
 }
 button {
     background-color: #ff3d00;
@@ -298,6 +301,57 @@ button:active {
     color: white;
 }
 
+.categorias {
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+    overflow-x: auto;
+    justify-content: flex-start;
+}
+
+.categorias::-webkit-scrollbar{
+    display: none;
+}
+
+.categoria-btn {
+    flex: 0 0 auto;
+    padding: 6px 12px;
+    font-size: 14px;
+    border: none;
+    border-radius: 20px;
+    background: #e23838;
+    cursor: pointer;
+    white-space: nowrap;
+    width: 30%;
+    transition:  all 0.2s ease;
+}
+
+.categoria-btn:hover {
+    transform: scale(1.05);
+}
+
+.categoria-btn:active {
+    transform: scale(0.95);
+}
+
+.categoria-btn.ativo {
+    background: #00aaff;
+    color: white;
+    transform: scale(1.05);
+}
+
+.categoria-btn.ativo {
+    background: #00aaff;
+    color: white;
+}
+
+@keyframes aparecer {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 @keyframes pulse {
     0% {transform:  scale(1);}
     50% {transform : scale(1.1);}
@@ -306,7 +360,7 @@ button:active {
 .pulse{
     animation: pulse 0.3s ease;
 }
-@keyframes adicionar {
+@keyframes clickAdd {
     0% {transform: scale(1);}
     50% {transform: scale(1.1);}
     100% {transform: scale(1);}

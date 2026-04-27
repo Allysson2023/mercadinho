@@ -16,6 +16,14 @@
     <div id="toast" class="toast"></div>
 
     <main>
+
+        <div class="categorias">
+            <button class="categoria-btn ativo" onclick="filtrarCategoria('Todos', this)">Todos</button>
+            <button class="categoria-btn" onclick="filtrarCategoria('Mercearia', this)">Mercearia</button>
+            <button class="categoria-btn" onclick="filtrarCategoria('Bebidas', this)">Bebidas</button>
+            <button class="categoria-btn" onclick="filtrarCategoria('Limpeza', this)">Limpeza</button>
+        </div>
+
         <section class="produtos" id="lista-produtos"></section>
     </main>
     
