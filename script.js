@@ -5,6 +5,15 @@ let produtoAtual = null;
 
 const somAdd = new Audio("mixkit-select-click-1109.wav");
 somAdd.volume = 0.3;
+
+document.addEventListener("click", () => {
+    somAdd.play().then(() => {
+        somAdd.pause();
+        somAdd.currentTime = 0;
+    }).catch(() => {});
+}, { once: true});
+
+
 const btnCarrinho = document.getElementById("btn-carrinho");
 btnCarrinho.addEventListener("click", () => {
     document.getElementById("modal-carrinho").classList.remove("oculto");
@@ -305,6 +314,18 @@ function enviarPedido(){
     const pagamento = document.getElementById("pagamento").value;
     const troco = document.getElementById("troco").value;
     const valorTroco = Number(troco);
+    const agora = new Date();
+    const data = agora.toLocaleDateString("pt-BR");
+    const hora = agora.toLocaleTimeString("pt-BR", {
+        hour: '2-digit',
+        minute: '2-digit'
+    });
+
+    // ✅ VALIDAÇÃO PRIMEIRO
+    if(!nome || !endereco || !telefone){
+        mostrarToast("⚠ Preencha todos os dados!");
+        return;
+    }
 
     let total = 0;
     carrinho.forEach(item => {
@@ -323,36 +344,32 @@ function enviarPedido(){
         }
     }
 
-    let mensagem = "🛒 Pedido:\n\n";
+    // 🟢 MENSAGEM BONITA
+    let mensagem = "🛒 *NOVO PEDIDO*\n";
+    mensagem += "━━━━━━━━━━━━━━━\n\n";
 
-    mensagem += `👤 Nome: ${nome}\n\n`;
-    
+    mensagem += `👤 *Cliente:* ${nome}\n`;
+    mensagem += `📞 *Telefone:* ${telefone}\n\n`;
+    mensagem += `🕒 *Data:* ${data} às ${hora}\n\n`;
+
+    mensagem += "🧾 *Itens do Pedido:*\n";
+
     carrinho.forEach(item => {
-        mensagem += ` - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n`
-        mensagem += `Qtd x ${item.quantidade} -> ${item.nome}\n `;
+        mensagem += `• ${item.quantidade}x ${item.nome}\n`;
     });
-    
-    
-    //let total = 0;
-    //carrinho.forEach(item => {
-        //    total += item.preco * item.quantidade;
-        //});
-        
-        //mensagem += `\nTotal: R$ ${total}\n\n`;
-    mensagem += ` - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n`
 
-    mensagem += `📍 Endereço: ${endereco}, Nº ${numero}\n`;
-    mensagem += `📞 Telefone: ${telefone}\n`;
-    mensagem += `💳 Pagamento: ${pagamento}\n`;
-    mensagem += `💳 Troco: ${troco}\n`;
+    mensagem += "\n━━━━━━━━━━━━━━━\n";
+
+    mensagem += `📍 *Endereço:*\n${endereco}, Nº ${numero}\n\n`;
+
+    mensagem += `💳 *Pagamento:* ${pagamento}\n`;
 
     if(pagamento === "Dinheiro" && troco){
-        mensagem += `💰 Troco para: R$ ${troco}\n`;
+        mensagem += `💰 *Troco para:* R$ ${troco}\n`;
     }
 
-    if(!nome || !endereco || !telefone){
-        return;
-    }
+    mensagem += "\n━━━━━━━━━━━━━━━\n";
+    mensagem += "🙏 Obrigado pelo pedido!";
 
     const numeroWhats = "5585921996610";
 
@@ -361,9 +378,7 @@ function enviarPedido(){
     window.open(link, "_blank");
     limpaCarrinho();
     fecharModalCliente();
-    mostrarToast("✔ Pedido Enviado com sucesso! ");
-
-
+    mostrarToast("✔ Pedido Enviado com sucesso!");
 }
 
 function mostrarToast(mensagem){
