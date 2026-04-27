@@ -266,6 +266,24 @@ function enviarPedido(){
     const telefone = document.getElementById("telefone").value;
     const pagamento = document.getElementById("pagamento").value;
     const troco = document.getElementById("troco").value;
+    const valorTroco = Number(troco);
+
+    let total = 0;
+    carrinho.forEach(item => {
+        total += item.preco * item.quantidade;
+    });
+
+    if(pagamento === "Dinheiro"){
+        if(!troco){
+            mostrarToast("⚠ Informe o valor para troco!");
+            return;
+        }
+
+        if(valorTroco < total){
+            mostrarToast("❌ Valor do troco menor que o total!");
+            return;
+        }
+    }
 
     let mensagem = "🛒 Pedido:\n\n";
 
