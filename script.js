@@ -3,6 +3,8 @@ let carrinho = []
 const lista = document.getElementById("lista-produtos");
 let produtoAtual = null;
 
+const somAdd = new Audio("mixkit-select-click-1109.wav");
+somAdd.volume = 0.3;
 const btnCarrinho = document.getElementById("btn-carrinho");
 btnCarrinho.addEventListener("click", () => {
     document.getElementById("modal-carrinho").classList.remove("oculto");
@@ -127,6 +129,9 @@ function adicionarProduto(produto){
             quantidade: 1
         });
     }
+
+    somAdd.currentTime = 0;
+    somAdd.play().catch(() => {});
 
     salvaCarrinho();
     atualizarCarrinho();
