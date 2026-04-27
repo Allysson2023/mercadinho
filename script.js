@@ -75,7 +75,15 @@ function mostrarProdutos(listaProdutos){
         img.src = produto.imagem;
         
         img.addEventListener("click", () => {
-            abrirModal(produto.id);
+            card.classList.add("preco-destaque");
+
+            setTimeout(() => {
+                abrirModal(produto.id);
+            }, 300);
+
+            setTimeout(() => {
+                card.classList.remove("preco-destaque");
+            }, 600);
         })
         
     const titulo = document.createElement("h3");
@@ -384,6 +392,30 @@ function filtrarCategoria(categoria, botaoClicado){
 
 }
 
+function mostrarPromocoes(){
+    const container = document.getElementById("lista-promocoes");
+
+    container.innerHTML = "";
+
+    promocoes.forEach(promo => {
+        const card = document.createElement("div");
+        card.classList.add("promo-card");
+
+        const img = document.createElement("img");
+        img.src = promo.imagem;
+
+        const texto = document.createElement("div");
+        texto.classList.add("promo-texto");
+        texto.innerText = "🔥 Promoções do dia";
+
+        card.appendChild(img);
+        card.appendChild(texto);
+
+        container.appendChild(card);
+    })
+}
+
 carregarCarrinho();
 atualizandoBotaoCarrinho();
 mostrarProdutos(produtos);
+mostrarPromocoes();

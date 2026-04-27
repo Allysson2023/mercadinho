@@ -1,3 +1,13 @@
+const promocoes= [
+    { id: 1, imagem: "https://hortifrutibr.vtexassets.com/arquivos/ids/173881/Refrigerante-Coca-Cola-sabor-original-2l-gelada.jpg.jpg?v=638944163980900000"},
+
+    { id: 2, imagem: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuKFNNex092-A7CcRYtpE1gXFh5aedqk9-kA&s"},
+
+    { id: 3, imagem: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3Qykuyvrh-aUgY1fLEJEqPP9TGJxnr-h58g&s"},
+
+    { id: 4, imagem: "https://product-data.raiadrogasil.io/images/3465993.webp"}
+]
+
 const produtos = [
     {
         id: 1,
