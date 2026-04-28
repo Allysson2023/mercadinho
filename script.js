@@ -6,6 +6,32 @@ let produtoAtual = null;
 const somAdd = new Audio("mixkit-select-click-1109.wav");
 somAdd.volume = 0.3;
 
+document.addEventListener("DOMContentLoaded", () => {
+
+
+    
+    fetch('http://localhost:3000/produtos')
+    .then(res => res.json())
+    .then(data => {
+    const container = document.getElementById('lista-produtos')
+    
+    data.forEach(produto => {
+        const div = document.createElement('div')
+
+        div.innerHTML = `
+            <img src="${produto.imagem}" width="150" > 
+            <h3>${produto.nome}</h3>
+            <p> Preço: R$ ${produto.preco} </p>
+            <br>
+            `
+            container.appendChild(div)
+    })
+})
+.catch(err => console.log("Erro API:", err))
+
+})
+
+
 document.addEventListener("click", () => {
     somAdd.play().then(() => {
         somAdd.pause();
@@ -437,5 +463,5 @@ function mostrarPromocoes(){
 
 carregarCarrinho();
 atualizandoBotaoCarrinho();
-mostrarProdutos(produtos);
+//mostrarProdutos(produtos);
 mostrarPromocoes();
