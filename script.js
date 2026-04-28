@@ -461,6 +461,34 @@ function mostrarPromocoes(){
     })
 }
 
+const form = document.getElementById("form-produto");
+
+form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const nome = document.getElementById("nome").value;
+    const preco = document.getElementById("preco").value;
+    const imagem = document.getElementById("imagem").files[0];
+
+    const formData = new FormData();
+
+    formData.append("nome", nome);
+    formData.append("preco", preco);
+    formData.append("imagem", imagem);
+
+    fetch("http://localhost:3000/upload-produto", {
+        method: "POST",
+        body: formData
+    })
+    .then(res => res.json())
+    .then(data => {
+        alert("Produto cadastrado com sucesso!");
+        form.reset();
+    })
+    .catch(err => console.log("Erro", err));
+
+});
+
 carregarCarrinho();
 atualizandoBotaoCarrinho();
 //mostrarProdutos(produtos);
