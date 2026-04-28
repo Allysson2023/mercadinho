@@ -28,6 +28,11 @@ document.addEventListener("DOMContentLoaded", () => {
             <button onclick="deletarProduto(${produto.id})">
                 Deletar
             </button>
+
+            <button onclick="editarProduto(${produto.id}, '${produto.nome}', ${produto.preco}) ">
+                Editar
+            </button>
+
             <br><br>
             `
             container.appendChild(div)
@@ -509,6 +514,30 @@ function deletarProduto(id){
         location.reload();
     })
     .catch(err => console.log("Erro:", err));
+}
+
+function editarProduto(id, nome, preco){
+    const novoNome = prompt("Novo nome: ", nome);
+    const novoPreco = prompt("Novo preço: ", preco);
+
+    if(!novoNome || !novoPreco) return;
+
+    fetch(`http://localhost:3000/produtos/${id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            nome: novoNome,
+            preco: novoPreco
+        })
+    })
+    .then(res => res.json())
+    .then(() => {
+        alert("Produto atualizado!");
+        location.reload();
+    })
+    .catch(err => console.log(err));
 }
 
 carregarCarrinho();
