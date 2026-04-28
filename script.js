@@ -16,18 +16,24 @@ document.addEventListener("DOMContentLoaded", () => {
     const container = document.getElementById('lista-produtos')
     
     data.forEach(produto => {
+        console.log(produto);
+        
         const div = document.createElement('div')
 
         div.innerHTML = `
             <img src="${produto.imagem}" width="150" > 
             <h3>${produto.nome}</h3>
             <p> Preço: R$ ${produto.preco} </p>
-            <br>
+
+            <button onclick="deletarProduto(${produto.id})">
+                Deletar
+            </button>
+            <br><br>
             `
             container.appendChild(div)
     })
+    .catch(err => console.log("Erro API:", err))
 })
-.catch(err => console.log("Erro API:", err))
 
 })
 
@@ -488,6 +494,22 @@ form.addEventListener("submit", (e) => {
     .catch(err => console.log("Erro", err));
 
 });
+
+function deletarProduto(id){
+    const confirmar = confirm("Tem certeza que desejar deletar?");
+
+    if (!confirmar) return;
+
+    fetch(`http://localhost:3000/produtos/${id}`, {
+        method: "DELETE"
+    })
+    .then(res => res.json())
+    .then(data => {
+        alert("Produto deletado com sucesso!");
+        location.reload();
+    })
+    .catch(err => console.log("Erro:", err));
+}
 
 carregarCarrinho();
 atualizandoBotaoCarrinho();
