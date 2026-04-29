@@ -29,6 +29,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 Deletar
             </button>
 
+            <button onclick="editarImagem(${produto.id})">
+                Trocar Imagem
+            </button>
+
             <button onclick="editarProduto(${produto.id}, '${produto.nome}', ${produto.preco}) ">
                 Editar
             </button>
@@ -538,6 +542,38 @@ function editarProduto(id, nome, preco){
         location.reload();
     })
     .catch(err => console.log(err));
+}
+
+function editarImagem(id) {
+    const input = document.createElement("input");
+    input.type = "file";
+
+    input.onchange = () => {
+        const arquivo = input.files[0];
+
+        if(!arquivo) return;
+
+        const formData = new FormData();
+        formData.append("imagem", arquivo);
+
+        fetch(`http://localhost:3000/produtos/${id}/imagem`, {
+            method:"PUT",
+            body: formData
+        })
+        .then(res => {
+            console.log("resposta:", res);
+            res.json()        
+            }
+        )
+            .then(data => {
+                console.log("dados: ", data);
+                
+            alert("Imagem atualizada!");
+            location.reload();
+        })
+        .catch(err => console.log("Erro real: ", err));
+    };
+    input.click();
 }
 
 carregarCarrinho();
