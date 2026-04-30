@@ -1,50 +1,46 @@
 let carrinho = []
 
 const lista = document.getElementById("lista-produtos");
+
+function getAuthHeaders(){
+    const token = localStorage.getItem("token");
+
+    if(!token){
+        console.warn("Sem token!");
+        return {};
+    }
+
+    return {
+        Authorization: "Bearer " + token
+    }
+}
+
 let produtoAtual = null;
 
 const somAdd = new Audio("mixkit-select-click-1109.wav");
 somAdd.volume = 0.3;
 
 document.addEventListener("DOMContentLoaded", () => {
+    const token = localStorage.getItem("token");
 
+    if(token){
+        liberarSistema();
+    } else {
+        bloquearSistema();
+    }
+});
 
-    
-    fetch('http://localhost:3000/produtos')
-    .then(res => res.json())
-    .then(data => {
-    const container = document.getElementById('lista-produtos')
-    
-    data.forEach(produto => {
-        console.log(produto);
-        
-        const div = document.createElement('div')
+function liberarSistema(){
+    document.getElementById("tela-login").style.display = "none";
+    document.getElementById("sistema").style.display = "block";
 
-        div.innerHTML = `
-            <img src="${produto.imagem}" width="150" > 
-            <h3>${produto.nome}</h3>
-            <p> Preço: R$ ${produto.preco} </p>
+    carregarProdutos(); // só carrega depois do login
+}
 
-            <button onclick="deletarProduto(${produto.id})">
-                Deletar
-            </button>
-
-            <button onclick="editarImagem(${produto.id})">
-                Trocar Imagem
-            </button>
-
-            <button onclick="editarProduto(${produto.id}, '${produto.nome}', ${produto.preco}) ">
-                Editar
-            </button>
-
-            <br><br>
-            `
-            container.appendChild(div)
-    })
-    .catch(err => console.log("Erro API:", err))
-})
-
-})
+function bloquearSistema(){
+    document.getElementById("tela-login").style.display = "block";
+    document.getElementById("sistema").style.display = "none";
+}
 
 
 document.addEventListener("click", () => {
@@ -137,6 +133,7 @@ function mostrarProdutos(listaProdutos){
                 card.classList.remove("preco-destaque");
             }, 600);
         })
+        
         
     const titulo = document.createElement("h3");
     titulo.innerText = produto.nome;
@@ -493,6 +490,9 @@ form.addEventListener("submit", (e) => {
 
     fetch("http://localhost:3000/upload-produto", {
         method: "POST",
+        headers:{
+            ...getAuthHeaders()
+        },
         body: formData
     })
     .then(res => res.json())
@@ -505,30 +505,57 @@ form.addEventListener("submit", (e) => {
 });
 
 function deletarProduto(id){
-    const confirmar = confirm("Tem certeza que desejar deletar?");
+    const token = localStorage.getItem("token");
 
+    if(!token){
+        alert("Você precisa estar logado!");
+        return;
+    }
+
+    const confirmar = confirm("Tem certeza que deseja deletar?");
     if (!confirmar) return;
 
     fetch(`http://localhost:3000/produtos/${id}`, {
-        method: "DELETE"
+        method: "DELETE",
+        headers: {
+            ...getAuthHeaders()
+        }
     })
-    .then(res => res.json())
+    .then(res => {
+        console.log("STATUS DELETE:", res.status);
+        return res.json();
+    })
     .then(data => {
-        alert("Produto deletado com sucesso!");
+        console.log("RESPOSTA:", data);
+        alert("Produto deletado!");
         location.reload();
     })
-    .catch(err => console.log("Erro:", err));
+    .catch(err => {
+        console.error("Erro DELETE:", err);
+        alert("Erro ao deletar!");
+    });
 }
 
 function editarProduto(id, nome, preco){
-    const novoNome = prompt("Novo nome: ", nome);
-    const novoPreco = prompt("Novo preço: ", preco);
+    const token = localStorage.getItem("token");
 
-    if(!novoNome || !novoPreco) return;
+    if(!token){
+        alert("Você precisa estar logado!");
+        return;
+    }
+
+    const novoNome = prompt("Novo nome: ", nome);
+    const novoPreco = parseFloat(prompt("Novo preço: ", preco));
+
+    if(!novoNome || isNaN(novoPreco)) {
+        alert("Dados inválidos!");
+        return;
+    }
 
     fetch(`http://localhost:3000/produtos/${id}`, {
         method: "PUT",
         headers: {
+            ...getAuthHeaders(),
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
@@ -536,12 +563,24 @@ function editarProduto(id, nome, preco){
             preco: novoPreco
         })
     })
-    .then(res => res.json())
-    .then(() => {
+    .then(res => {
+        console.log("STATUS PUT:", res.status);
+
+        if(!res.ok){
+            throw new Error("Erro na requisição");
+        }
+
+        return res.json();
+    })
+    .then(data => {
+        console.log("RESPOSTA:", data);
         alert("Produto atualizado!");
         location.reload();
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+        console.error("Erro PUT:", err);
+        alert("Erro ao atualizar produto!");
+    });
 }
 
 function editarImagem(id) {
@@ -558,13 +597,15 @@ function editarImagem(id) {
 
         fetch(`http://localhost:3000/produtos/${id}/imagem`, {
             method:"PUT",
-            body: formData
+            headers: {
+            ...getAuthHeaders()
+        },
+        body: formData
         })
         .then(res => {
             console.log("resposta:", res);
-            res.json()        
-            }
-        )
+            return res.json();
+            })
             .then(data => {
                 console.log("dados: ", data);
                 
@@ -574,6 +615,56 @@ function editarImagem(id) {
         .catch(err => console.log("Erro real: ", err));
     };
     input.click();
+}
+
+function carregarProdutos(){
+    fetch('http://localhost:3000/produtos')
+    .then(res => res.json())
+    .then(data => {
+        const container = document.getElementById('lista-produtos');
+        container.innerHTML = "";
+
+        data.forEach(produto => {
+            const div = document.createElement('div');
+
+            div.innerHTML = `
+                <img src="${produto.imagem}" width="150"> 
+                <h3>${produto.nome}</h3>
+                <p>R$ ${produto.preco}</p>
+
+                <button onclick="deletarProduto(${produto.id})">Deletar</button>
+                <button onclick="editarProduto(${produto.id}, '${produto.nome}', ${produto.preco})">Editar</button>
+            `;
+
+            container.appendChild(div);
+        });
+    });
+}
+
+function login() {
+    const email = document.getElementById("email").value;
+    const senha = document.getElementById("senha").value;
+
+    fetch("http://localhost:3000/login", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email, senha })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if(!data.token){
+            alert("Email ou senha inválidos!");
+            return;
+        }
+
+        localStorage.setItem("token", data.token);
+
+        alert("Login feito!");
+        liberarSistema(); // 🔥 entra no sistema
+    })
+    .catch(() => alert("Erro no login"));
 }
 
 carregarCarrinho();

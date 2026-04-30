@@ -5,6 +5,37 @@ body{
     overflow-x: hidden;
 }
 
+.tela-login {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #0f172a;
+}
+
+.login-box {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    width: 300px;
+    text-align: center;
+}
+
+.login-box input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.login-box button {
+    width: 100%;
+    padding: 10px;
+    background: #22c55e;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
 header {
     position: sticky;
     top: 0;    

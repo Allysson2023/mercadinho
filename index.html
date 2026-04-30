@@ -8,10 +8,24 @@
 </head>
 <body>
 
+    
     <header>
         <h1>🛒 IFOOD 2</h1>
         <button class="btn-tmh" id="btn-carrinho">🛒 Carrinho</button>
     </header>
+    <div id="tela-login">
+
+        <h2>Login Admin</h2>
+        
+        <input type="email" id="email" placeholder="Email">
+        <input type="password" id="senha" placeholder="Senha">
+        <button onclick="login()">Entra</button>
+    </div>
+
+    <div id="sistema" style="display: none;" >
+        <h1>Mercadinho</h1>
+        <section class="produtos" id="lista-produtos"></section>
+    </div>
 
     <div id="toast" class="toast"></div>
 
@@ -28,7 +42,7 @@
             <button class="categoria-btn" onclick="filtrarCategoria('Limpeza', this)">Limpeza</button>
         </div>
 
-        <section class="produtos" id="lista-produtos"></section>
+    
     </main>
 
     <h2>Cadastrar Produto</h2>
