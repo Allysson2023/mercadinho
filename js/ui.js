@@ -1,3 +1,5 @@
+let promocoes = [];
+
 function abrirModal(id){
     const produto = produtos.find(p=> p.id === id);
     if(!produto) return;
@@ -62,6 +64,9 @@ function filtrarCategoria(categoria, botaoClicado){
 }
 
 function mostrarPromocoes(){
+
+    if (!Array.isArray(promocoes)) return;
+    
     const container = document.getElementById("lista-promocoes");
 
     container.innerHTML = "";

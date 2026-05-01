@@ -1,7 +1,12 @@
 function getAuthHeaders(){
     const token = localStorage.getItem("token");
 
-    if(!token) return {};
+    console.log("TOKEN: ", token);
+    
+    if(!token) {
+        alert("Sem token, faça login!");
+        return null;
+    };
 
     return {
         Authorization: "Bearer " + token

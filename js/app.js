@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
     carregarCarrinho();
     atualizandoBotaoCarrinho();
 
-    mostrarPromocoes();
+    //mostrarPromocoes();
 
     // FORM
     const form = document.getElementById("form-produto");
@@ -44,9 +44,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
         console.log("CLICOU 🔥");
 
-        const nome = document.getElementById("nome").value;
-        const preco = document.getElementById("preco").value;
-        const imagem = document.getElementById("imagem").files[0];
+        const nome = document.getElementById("nome-produto").value;
+        const preco = document.getElementById("preco-produto").value;
+        const imagem = document.getElementById("imagem-produto").files[0];
 
         console.log("DADOS:", nome, preco, imagem);
 
@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
             headers: {
                 ...getAuthHeaders()
             },
-            body: formData
+            body:formData
         })
         .then(res => res.json())
         .then(data => {
