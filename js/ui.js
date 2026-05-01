@@ -140,3 +140,11 @@ function abrirConfirmacao(){
 function fecharConfirmacao(){
     document.getElementById("modal-confirmar").classList.add("oculto");
 }
+
+function abrirModalAdmin(){
+    document.getElementById("modal-admin").classList.remove("oculto");
+}
+
+function fecharModalAdmin(){
+    document.getElementById("modal-admin").classList.add("oculto");
+}

@@ -13,6 +13,9 @@
         <h1>🛒 IFOOD 2</h1>
         <button class="btn-tmh" id="btn-carrinho">🛒 Carrinho</button>
     </header>
+
+
+
     <div id="tela-login">
 
         <h2>Login Admin</h2>
@@ -21,12 +24,23 @@
         <input type="password" id="senha" placeholder="Senha">
         <button onclick="login()">Entra</button>
     </div>
-    <main>
 
+    
+    
+    <main>
+        
         <div class="promocoes">
             <div class="promo-container" id="lista-promocoes" ></div>
         </div>
 
+
+
+        <div class="admin-actions">
+            <button class="btn-admin" onclick="abrirModalAdmin()" >+ Cadastrar Produto</button>
+        </div>
+
+        
+        
         <div class="categorias">
             <button class="categoria-btn ativo" onclick="filtrarCategoria('Todos', this)">Todos</button>
             <button class="categoria-btn" onclick="filtrarCategoria('Mercearia', this)">Mercearia</button>
@@ -40,27 +54,47 @@
     
     </main>
 
+
+
     <div id="sistema" style="display: none;" >
         <h1>Mercadinho</h1>
 
         <section class="produtos" id="lista-produtos"></section>
 
-        <h2>Cadastrar Produto</h2>
+        
+    </div>
+
+    <div id="modal-admin" class="modal oculto" >
+        <div class="modal-box">
+            <h2>Cadastrar Produto do Mercadinho</h2>
     
         <form id="form-produto" enctype="multipart/form-data">
 
-            <input type="text" id="nome" placeholder="Nome do Produto" required>
-            <br><br>
+            <div class="campo">
+
+                <label>Nome do Prooduto</label>
+                <input type="text" id="nome" placeholder="Nome do Produto" required>
+            </div>
+                
+            <div class="campo">
+                <label>Preço</label>
+                <input type="number" id="preco" step="0.01" placeholder="Preço" required> 
+            </div>
     
-            <input type="number" id="preco" placeholder="Preço" required> <br><br>
+            <div class="campo">
+                <label>Imagem</label>
+                <input type="file" id="imagem" required>
+            </div>
     
-            <input type="file" id="imagem" required> <br><br>
-    
-            <button type="submit" >Cadastrar</button>
+            <div class="botoes-form">
+                <button type="button" onclick="fecharModalAdmin()" >Cancelar</button>
+                <button type="submit" >Cadastrar</button>
+            </div>
     
         </form>
+        </div>
     </div>
-
+    
     <div id="toast" class="toast"></div>
 
 
@@ -174,7 +208,7 @@
     <script src="js/carrinho.js" ></script>
     <script src="js/pedidos.js" ></script>
     <script src="js/ui.js" ></script>
-<script src="js/app.js" ></script>
+    <script src="js/app.js" ></script>
 
 </body>
 </html>

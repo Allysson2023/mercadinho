@@ -166,6 +166,7 @@ button:active {
     align-items: center;
     padding-top: 20px;
     z-index: 9999;
+    padding: 10px;
 }
 
 .oculto {
@@ -180,9 +181,11 @@ button:active {
     padding: 20px;
     padding-top: 25px;
     border-radius: 10px;
-    width: 100%;
+
+    width: calc(100% - 20%);
     max-width: 350px;
-    margin: 0 10px;
+    margin: 0 auto;
+
     scrollbar-width: thin;
     text-align: center;
     display: flex;
@@ -484,19 +487,34 @@ button:active {
 }
 
 #preco {
-    font-size: 32px;
+    font-size: 22px;
+    padding: 8px;
+    display: block;
+
     font-weight: bold;
     color: #00c853;
     background: #e8f5e9;
-    padding: 8px;
     border-radius: 10px;
-    display: inline-block;
     margin: 10px 0;
     animation: aparecerPreco 0.4s ease;
 }
 
 .logo-marca {
     height: 150px;
+}
+
+.admin-actions {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
+}
+
+.btn-admin {
+    background: #22c55e;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-weight: bold;
 }
 
 @keyframes aparecerPreco {
@@ -582,11 +600,11 @@ button:active {
     }
 
     .botoes-form {
-        flex-direction: column;
+        display: flex;
         gap: 10px;
     }
-    button {
-        width: 100%;
+    .botoes-form button {
+        flex: 1;
     }
 
     #carrinho {
@@ -602,6 +620,9 @@ button:active {
     }
     .logo-marca {
         height: 105px;
+    }
+    #preco {
+        font-size: 18px;
     }
 }
 @media(max-width: 480px){
