@@ -495,6 +495,10 @@ button:active {
     animation: aparecerPreco 0.4s ease;
 }
 
+.logo-marca {
+    height: 150px;
+}
+
 @keyframes aparecerPreco {
     from {
         transform: scale(0.8);
@@ -595,6 +599,9 @@ button:active {
     }
     .btn-tmh {
         width: 40%;
+    }
+    .logo-marca {
+        height: 105px;
     }
 }
 @media(max-width: 480px){
