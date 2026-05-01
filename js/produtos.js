@@ -1,3 +1,7 @@
+const lista = document.getElementById("lista-produtos");
+
+let produtoAtual = null;
+
 function carregarProdutos(){
     apiFetch("/produtos")
     .then(res => res.json())
@@ -112,4 +116,83 @@ function editarProduto(id, nome, preco){
         console.error("Erro PUT:", err);
         alert("Erro ao atualizar produto!");
     });
+}
+
+
+function mostrarProdutos(listaProdutos){
+    lista.innerHTML = "";
+    listaProdutos.forEach((produto,index) => {
+
+        const card = document.createElement("div");
+        card.classList.add("card");
+
+        card.style.animationDelay = `${index * 0.05}s`;
+        
+        const img = document.createElement("img");
+        img.src = produto.imagem;
+        
+        img.addEventListener("click", () => {
+            card.classList.add("preco-destaque");
+
+            setTimeout(() => {
+                abrirModal(produto.id);
+            }, 300);
+
+            setTimeout(() => {
+                card.classList.remove("preco-destaque");
+            }, 600);
+        })
+        
+        
+    const titulo = document.createElement("h3");
+    titulo.innerText = produto.nome;
+
+    const preco = document.createElement("p");
+    preco.innerText = "R$ " + produto.preco;
+
+    const botao = document.createElement("button");
+    botao.innerText = "Adicionar";
+
+    botao.addEventListener("click", (e) => {
+        e.stopPropagation(); 
+        adicionarProduto(produto);
+        card.classList.add("animar");
+
+        setTimeout(() => {
+            card.classList.remove("animar");
+        }, 300)
+    })
+
+    card.appendChild(img);
+    card.appendChild(titulo);
+    card.appendChild(preco);
+    card.appendChild(botao);
+
+    lista.appendChild(card);
+});
+}
+
+
+function abrirModal(id){
+    const produto = produtos.find(p=> p.id === id);
+    if(!produto) return;
+
+    produtoAtual = produto;
+
+    document.getElementById("nome").innerText = produto.nome;
+    document.getElementById("descricao").innerText = produto.descricao;
+    document.getElementById("preco").innerText = "R$ " + produto.preco;
+
+    const imgPrincipal = document.getElementById("img-principal");
+    imgPrincipal.src = produto.imagem;
+
+    
+
+    document.getElementById("modal").classList.remove("oculto");
+}
+
+function smsAdicionado(){
+    if(!produtoAtual) return;
+    adicionarProduto(produtoAtual);
+    fecharModal();
 }

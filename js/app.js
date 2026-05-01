@@ -24,6 +24,11 @@ document.addEventListener("DOMContentLoaded", () => {
         bloquearSistema();
     }
 
+    carregarCarrinho();
+    atualizandoBotaoCarrinho();
+
+    mostrarPromocoes();
+
     // FORM
     const form = document.getElementById("form-produto");
 
