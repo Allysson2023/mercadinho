@@ -124,6 +124,7 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(data => {
             alert("Produto cadastrado!");
             form.reset();
+            fecharModalAdmin();
             carregarProdutos();
         })
         .catch(err => {
