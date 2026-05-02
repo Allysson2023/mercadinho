@@ -62,6 +62,16 @@ document.addEventListener("DOMContentLoaded", () => {
     liberarSistema();
     
     const isAdmin =localStorage.getItem("isAdmin");
+
+    const adminActions = document.querySelector(".admin-actions");
+    if (adminActions){
+        if(isAdmin === "true"){
+            adminActions.style.display = "block";
+        } else {
+            adminActions.style.display = "none";
+        }
+    }
+
     const btnLogout = document.getElementById("btn-logout");
 
     if(btnLogout){
