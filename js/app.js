@@ -12,6 +12,39 @@ function bloquearSistema(){
     document.getElementById("sistema").style.display = "none";
 }
 
+function abrirLoginAdmin(){
+    document.getElementById("modal-admin-login").classList.remove("oculto");
+}
+
+function fecharLoginAdmin(){
+    document.getElementById("modal-admin-login").classList.add("oculto");
+}
+
+function fazerLoginAdmin(){
+    const email = document.getElementById("admin-email").value;
+    const senha = document.getElementById("admin-senha").value;
+
+    fetch("http://localhost:3000/login", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email, senha })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.token){
+            localStorage.setItem("token", data.token);
+            localStorage.setItem("isAdmin", "true");
+            
+            alert("Bem-vindo admin!");
+
+            location.reload();
+        } else {
+            alert("Login inválido");
+        }
+    });
+}
 
 // 🚀 INÍCIO DO SITE
 document.addEventListener("DOMContentLoaded", () => {

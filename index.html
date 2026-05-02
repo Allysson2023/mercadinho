@@ -12,6 +12,11 @@
     <header class="logo-marca">
         <h1>🛒 IFOOD 2</h1>
         <button class="btn-tmh" id="btn-carrinho">🛒 Carrinho</button>
+
+        <nav class="menu">
+            <button onclick="abrirLoginAdmin()">Admin</button>
+            <button onclick="abrirContato()">Contato</button>
+        </nav>
     </header>
 
 
@@ -198,6 +203,21 @@
                 <button onclick="naoPrecisaTroco()" >Não</button>
                 <button class="btn-perigo" onclick="precisaTroco()" >Sim</button>
             </div>
+        </div>
+    </div>
+
+    <div id="modal-admin-login" class="modal oculto">
+        <div class="modal-box">
+            <h2>Login Admin</h2>
+
+            <input type="email" id="admin-email" placeholder="Email">
+            <input type="password" id="admin-senha" placeholder="Senha">
+
+            <div class="botoes-form">
+                <button onclick="fecharLoginAdmin()" >Cancelar</button>
+                <button onclick="fazerLoginAdmin()" >Entra</button>
+            </div>
+
         </div>
     </div>
 

@@ -120,6 +120,9 @@ function editarProduto(id, nome, preco){
 
 
 function mostrarProdutos(listaProdutos){
+
+    const isAdmin = localStorage.getItem("isAdmin");
+
     lista.innerHTML = "";
     listaProdutos.forEach((produto,index) => {
 
@@ -150,6 +153,8 @@ function mostrarProdutos(listaProdutos){
     const preco = document.createElement("p");
     preco.innerText = "R$ " + produto.preco;
 
+
+
     const botao = document.createElement("button");
     botao.innerText = "Adicionar";
 
@@ -162,6 +167,26 @@ function mostrarProdutos(listaProdutos){
             card.classList.remove("animar");
         }, 300)
     })
+
+    if (isAdmin === "true"){
+        const btnEditar = document.createElement("button");
+        btnEditar.innerText = "Editar";
+
+        btnEditar.addEventListener("click", (e) => {
+            e.stopPropagation();
+            editarProduto(produto.id, produto.nome, produto.preco);
+        });
+
+        const btnDeletar = document.createElement("button");
+        btnDeletar.innerText = "Deletar";
+
+        btnDeletar.addEventListener("click", (e) => {
+            e.stopPropagation();
+            deletarProduto(produto.id);
+        });
+        card.appendChild(btnEditar);
+        card.appendChild(btnDeletar);
+    }
 
     card.appendChild(img);
     card.appendChild(titulo);
