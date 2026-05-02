@@ -6,24 +6,7 @@ function carregarProdutos(){
     apiFetch("/produtos")
     .then(res => res.json())
     .then(data => {
-        const container = document.getElementById('lista-produtos');
-        container.innerHTML = "";
-
-        data.forEach(produto => {
-            const div = document.createElement('div');
-
-            div.innerHTML = `
-                <img src="${produto.imagem}" width="150"> 
-                <h3>${produto.nome}</h3>
-                <p>R$ ${produto.preco}</p>
-
-                <button onclick="deletarProduto(${produto.id})">Deletar</button>
-                <button onclick='editarProduto(${produto.id}, "${produto.nome}", ${produto.preco})'>Editar</button>
-                <button onclick="editarImagem(${produto.id})">Trocar Imagem </button>
-            `;
-
-            container.appendChild(div);
-        });
+        mostrarProdutos(data);
     });
 }
 
@@ -168,10 +151,15 @@ function mostrarProdutos(listaProdutos){
         }, 300)
     })
 
+    card.appendChild(img);
+    card.appendChild(titulo);
+    card.appendChild(preco);
+    card.appendChild(botao);
+
     if (isAdmin === "true"){
         const btnEditar = document.createElement("button");
         btnEditar.innerText = "Editar";
-
+        
         btnEditar.addEventListener("click", (e) => {
             e.stopPropagation();
             editarProduto(produto.id, produto.nome, produto.preco);
@@ -179,7 +167,7 @@ function mostrarProdutos(listaProdutos){
 
         const btnDeletar = document.createElement("button");
         btnDeletar.innerText = "Deletar";
-
+        
         btnDeletar.addEventListener("click", (e) => {
             e.stopPropagation();
             deletarProduto(produto.id);
@@ -187,13 +175,9 @@ function mostrarProdutos(listaProdutos){
         card.appendChild(btnEditar);
         card.appendChild(btnDeletar);
     }
-
-    card.appendChild(img);
-    card.appendChild(titulo);
-    card.appendChild(preco);
-    card.appendChild(botao);
-
+    
     lista.appendChild(card);
+
 });
 }
 

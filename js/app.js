@@ -1,7 +1,6 @@
 // 🔓 FUNÇÕES GLOBAIS (FORA DO DOMContentLoaded)
 
 function liberarSistema(){
-    document.getElementById("tela-login").style.display = "none";
     document.getElementById("sistema").style.display = "block";
 
     carregarProdutos();
@@ -46,15 +45,31 @@ function fazerLoginAdmin(){
     });
 }
 
+function logoutAdmin(){
+    localStorage.removeItem("token");
+    localStorage.removeItem("isAdmin");
+
+    alert("Voce saiu do modo admin!");
+
+    location.reload();
+}
+
 // 🚀 INÍCIO DO SITE
 document.addEventListener("DOMContentLoaded", () => {
 
     const token = localStorage.getItem("token");
 
-    if(token){
-        liberarSistema();
-    } else {
-        bloquearSistema();
+    liberarSistema();
+    
+    const isAdmin =localStorage.getItem("isAdmin");
+    const btnLogout = document.getElementById("btn-logout");
+
+    if(btnLogout){
+        if(isAdmin === "true"){
+            btnLogout.style.display = "flex";
+        } else {
+            btnLogout.style.display = "none";
+        }
     }
 
     carregarCarrinho();

@@ -16,21 +16,15 @@
         <nav class="menu">
             <button onclick="abrirLoginAdmin()">Admin</button>
             <button onclick="abrirContato()">Contato</button>
+            <button onclick="logoutAdmin()" id="btn-logout">Sair</button>
         </nav>
     </header>
-
-
-
-    <div id="tela-login">
-
-        <h2>Login Admin</h2>
-        
-        <input type="email" id="email" placeholder="Email">
-        <input type="password" id="senha" placeholder="Senha">
-        <button onclick="login()">Entra</button>
+    <div class="admin-actions">
+        <button class="btn-admin" onclick="abrirModalAdmin()" >+ Cadastrar Produto</button>
     </div>
 
-    
+
+
     
     <main>
         
@@ -38,14 +32,6 @@
             <div class="promo-container" id="lista-promocoes" ></div>
         </div>
 
-
-
-        <div class="admin-actions">
-            <button class="btn-admin" onclick="abrirModalAdmin()" >+ Cadastrar Produto</button>
-        </div>
-
-        
-        
         <div class="categorias">
             <button class="categoria-btn ativo" onclick="filtrarCategoria('Todos', this)">Todos</button>
             <button class="categoria-btn" onclick="filtrarCategoria('Mercearia', this)">Mercearia</button>
@@ -56,16 +42,12 @@
             <button class="categoria-btn" onclick="filtrarCategoria('Congelados', this)">Congelados</button>
         </div>
 
-    
     </main>
-
-
 
     <div id="sistema" style="display: none;" >
         <h1>Mercadinho</h1>
 
         <section class="produtos" id="lista-produtos"></section>
-
         
     </div>
 
@@ -101,7 +83,6 @@
     </div>
     
     <div id="toast" class="toast"></div>
-
 
     <hr>
 
