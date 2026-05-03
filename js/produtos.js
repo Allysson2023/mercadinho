@@ -1,11 +1,14 @@
 const lista = document.getElementById("lista-produtos");
 
+let produtos = []
+
 let produtoAtual = null;
 
 function carregarProdutos(){
     apiFetch("/produtos")
     .then(res => res.json())
     .then(data => {
+        produtos = data;
         mostrarProdutos(data);
     });
 }
