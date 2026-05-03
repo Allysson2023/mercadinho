@@ -168,6 +168,14 @@ function mostrarProdutos(listaProdutos){
             editarProduto(produto.id, produto.nome, produto.preco);
         });
 
+        const btnImagem = document.createElement("button");
+        btnImagem.innerText = "Editar Imagem";
+
+        btnImagem.addEventListener("click", (e) => {
+            e.stopPropagation();
+            editarImagem(produto.id);
+        })
+
         const btnDeletar = document.createElement("button");
         btnDeletar.innerText = "Deletar";
         
@@ -176,6 +184,7 @@ function mostrarProdutos(listaProdutos){
             deletarProduto(produto.id);
         });
         card.appendChild(btnEditar);
+        card.appendChild(btnImagem);
         card.appendChild(btnDeletar);
     }
     
