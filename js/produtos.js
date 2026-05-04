@@ -245,6 +245,17 @@ function abrirModal(id){
     document.getElementById("modal").classList.remove("oculto");
 }
 
+function confirmarDelecao(){
+    if (!produtoEditando) return;
+
+    const confirmou = confirm("Tem certeza que deseja deletar este produto?");
+
+    if(confirmou){
+        deletarProduto(produtoEditando.id);
+        fecharModalEditar();
+    }
+}
+
 function smsAdicionado(){
     if(!produtoAtual) return;
     adicionarProduto(produtoAtual);
