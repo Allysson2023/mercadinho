@@ -104,6 +104,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const nome = document.getElementById("nome-produto").value;
         const preco = document.getElementById("preco-produto").value;
+        const descricao = document.getElementById("descricao-produto").value;
+        const categoria = document.getElementById("categoria-produto").value;
         const imagem = document.getElementById("imagem-produto").files[0];
 
         console.log("DADOS:", nome, preco, imagem);
@@ -111,9 +113,11 @@ document.addEventListener("DOMContentLoaded", () => {
         const formData = new FormData();
         formData.append("nome", nome);
         formData.append("preco", preco);
+        formData.append("descricao", descricao);
+        formData.append("categoria", categoria);
         formData.append("imagem", imagem);
 
-        fetch("http://localhost:3000/upload-produto", {
+        fetch("http://localhost:3000/produtos", {
             method: "POST",
             headers: {
                 ...getAuthHeaders()
