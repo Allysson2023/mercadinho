@@ -199,14 +199,22 @@ button:active {
     width: calc(100% - 20%);
     max-width: 350px;
     margin: 0 auto;
-
     scrollbar-width: thin;
+
     text-align: center;
     display: flex;
     flex-direction: column;
+
     transform: scale(0.9);
     animation: abrirModal 0.25s ease forwards;
     scroll-behavior: smooth;
+    gap: 10px;
+}
+
+.modal-box input {
+    width: 100%;
+    padding: 10px;
+    font-size: 15px;
 }
 
 .modal-box h2 {
