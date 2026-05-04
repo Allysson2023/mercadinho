@@ -2,7 +2,18 @@ const lista = document.getElementById("lista-produtos");
 
 let produtos = []
 
+let produtoEditando = null;
+
 let produtoAtual = null;
+
+function abrirModalEditar(produto) {
+    produtoEditando = produto;
+
+    document.getElementById("edit-nome").value = produto.nome;
+    document.getElementById("edit-preco").value = produto.preco;
+
+    document.getElementById("modal-editar").classList.remove("oculto");
+}
 
 function carregarProdutos(){
     apiFetch("/produtos")
@@ -104,6 +115,44 @@ function editarProduto(id, nome, preco){
     });
 }
 
+function salvarEdicao(){
+    if (!produtoEditando) return;
+
+    const nome = document.getElementById("edit-nome").value;
+    const preco = parseFloat(document.getElementById("edit-preco").value);
+    const imagemInput = document.getElementById("edit-imagem");
+
+    fetch(`http://localhost:3000/produtos/${produtoEditando.id}`, {
+        method: "PUT",
+        headers: {
+            ...getAuthHeaders(),
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ nome, preco })
+    })
+    .then(() => {
+        if(imagemInput.files.length > 0) {
+            const formData = new FormData();
+            formData.append("imagem", imagemInput.files[0]);
+
+            return fetch(`http://localhost:3000/produtos/${produtoEditando.id}/imagem`, {
+                method: "PUT",
+                headers: {
+                    ...getAuthHeaders()
+                },
+                body: formData
+            });
+        }
+    })
+    .then(() => {
+        alert("Produto atualizado!");
+        fecharModalEditar();
+        carregarProdutos();
+    })
+    .catch(() => {
+        alert("Erro ao atualizar!");
+    });
+}
 
 function mostrarProdutos(listaProdutos){
 
@@ -139,10 +188,11 @@ function mostrarProdutos(listaProdutos){
     const preco = document.createElement("p");
     preco.innerText = "R$ " + produto.preco;
 
-
-
     const botao = document.createElement("button");
     botao.innerText = "Adicionar";
+
+    const botoes = document.createElement("div");
+    botoes.classList.add("botoes-card");
 
     botao.addEventListener("click", (e) => {
         e.stopPropagation(); 
@@ -157,7 +207,7 @@ function mostrarProdutos(listaProdutos){
     card.appendChild(img);
     card.appendChild(titulo);
     card.appendChild(preco);
-    card.appendChild(botao);
+    botoes.appendChild(botao);
 
     if (isAdmin === "true"){
         const btnEditar = document.createElement("button");
@@ -165,29 +215,12 @@ function mostrarProdutos(listaProdutos){
         
         btnEditar.addEventListener("click", (e) => {
             e.stopPropagation();
-            editarProduto(produto.id, produto.nome, produto.preco);
+            abrirModalEditar(produto);
         });
 
-        const btnImagem = document.createElement("button");
-        btnImagem.innerText = "Editar Imagem";
-
-        btnImagem.addEventListener("click", (e) => {
-            e.stopPropagation();
-            editarImagem(produto.id);
-        })
-
-        const btnDeletar = document.createElement("button");
-        btnDeletar.innerText = "Deletar";
-        
-        btnDeletar.addEventListener("click", (e) => {
-            e.stopPropagation();
-            deletarProduto(produto.id);
-        });
-        card.appendChild(btnEditar);
-        card.appendChild(btnImagem);
-        card.appendChild(btnDeletar);
+        botoes.appendChild(btnEditar)
     }
-    
+    card.appendChild(botoes);
     lista.appendChild(card);
 
 });

@@ -531,6 +531,16 @@ button:active {
     font-weight: bold;
 }
 
+.botoes-card {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.botoes-card button {
+    flex: 1;
+}
+
 @keyframes aparecerPreco {
     from {
         transform: scale(0.8);

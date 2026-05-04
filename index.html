@@ -202,6 +202,21 @@
         </div>
     </div>
 
+    <div id="modal-editar" class="modal oculto">
+        <div class="modal-box">
+            <h2>Editar Produto</h2>
+
+            <input type="text" id="edit-nome" placeholder="Nome" ><br><br>
+            <input type="number" id="edit-preco" placeholder="Preço" ><br><br>
+            <input type="file" id="edit-imagem"><br><br>
+
+            <div class="botoes-form">
+                <button onclick="fecharModalEditar()">Cancelar</button>
+                <button onclick="salvarEdicao()" >Salvar</button>
+            </div>
+        </div>
+    </div>
+
 
     <script src="js/api.js" ></script>
     <script src="js/auth.js" ></script>

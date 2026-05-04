@@ -153,3 +153,7 @@ function abrirModalAdmin(){
 function fecharModalAdmin(){
     document.getElementById("modal-admin").classList.add("oculto");
 }
+
+function fecharModalEditar(){
+    document.getElementById("modal-editar").classList.add("oculto");
+}
